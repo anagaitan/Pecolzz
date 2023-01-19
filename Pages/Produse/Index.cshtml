@@ -59,3 +59,15 @@
         }
     </tbody>
 </table>
+public IndexModel(Pecolzz.Data.PecolzzContext context)
+{
+_context = context;
+}
+public IList<Produs> Produs { get;set; } = default!;
+    public ProdusData ProdusID { get; set; }
+    public int ProdusID { get; set; }
+    public int CategorieID { get; set; }
+
+    public string Denumire_produsSort { get; set; } 
+    public decimal PretSort { get; set; }
+   
