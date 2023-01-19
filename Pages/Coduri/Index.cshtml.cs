@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pecolzz.Data;
 using Pecolzz.Models;
+using Pecolzz.Models.ViewModels
 
 namespace Pecolzz.Pages.Coduri
 {
@@ -21,11 +23,24 @@ namespace Pecolzz.Pages.Coduri
 
         public IList<Cod> Cod { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public CodIndexData CodData { get; set; }
+        public int CodID { get; set; }
+        public int ProdusID { get; set; }
+        public async Task OnGetAsync(int? id, int? produsID)
         {
-            if (_context.Cod != null)
+
+            CodData = new CodIndexData();
+            CodData.Coduri = await _context.Cod
+            .Include(i => i.Produse)
+            .ThenInclude(c => c.Denumire_produs)
+            .OrderBy(i => i.CodArticol)
+            .ToListAsync();
+            if (id != null)
             {
-                Cod = await _context.Cod.ToListAsync();
+                CodID = id.Value;
+                Cod cod = CodData.Coduri
+                .Where(i => i.ID == id.Value).Single();
+                CodData.Produse = cod.Produse;
             }
         }
     }

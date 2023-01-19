@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pecolzz.Data;
 using Pecolzz.Models;
+using Pecolzz.Models.ViewModels
 
 namespace Pecolzz.Pages.Produse
 {
@@ -23,9 +24,10 @@ namespace Pecolzz.Pages.Produse
 
         public async Task OnGetAsync()
         {
-            if (_context.Produs != null)
             {
-                Produs = await _context.Produs.ToListAsync();
+                Produs = await _context.Produs
+                .Include(b => b.Cod)
+                .ToListAsync();
             }
         }
     }

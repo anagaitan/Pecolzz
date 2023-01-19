@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,6 +22,7 @@ namespace Pecolzz.Pages.Produse
 
         public IActionResult OnGet()
         {
+            ViewData["CodID"] = new SelectList(_context.Set<Cod>(), "ID", "CodArticol");
             return Page();
         }
 

@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int?}"
 @model Pecolzz.Pages.Coduri.IndexModel
 
 @{
@@ -20,17 +20,46 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Cod) {
-        <tr>
+ 
+@foreach (var item in Model.CodData.Coduri)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.CodID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
             <td>
                 @Html.DisplayFor(modelItem => item.CodArticol)
             </td>
-            <td>
+                <td>
+                <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
-        </tr>
+           </tr>
 }
     </tbody>
 </table>
+
+@if (Model.CodData.Produse != null)
+{
+     <h3>Codul produsului </h3> 
+     <table class="table">
+        @foreach (var item in Model.CodData.Coduri)
+        {
+            string selectedRow = ""; if (item.ID == Model.CodID) { selectedRow = "table-success"; }
+            <tr class="@selectedRow">
+        <td> @{
+                        foreach (var b in item.Produse)
+                        {
+                            @b.Denumire_produs @: @b.Pret
+                <br />
+                }
+             }
+          </td> 
+          </tr>
+        }
+    </table>
+}

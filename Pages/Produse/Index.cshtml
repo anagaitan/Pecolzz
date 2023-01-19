@@ -25,6 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Produs[0].DataAdaugarii)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produs[0].Cod)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -43,6 +46,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DataAdaugarii)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cod.CodArticol)
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
